@@ -44,10 +44,7 @@ export function Navbar() {
         <div className="flex justify-between items-center h-16">
           {/* 🔹 Logo */}
           <Link href="/" className="flex items-center gap-2 font-bold text-xl text-primary">
-            <div className="w-8 h-8 bg-accent rounded-lg flex items-center justify-center text-primary font-bold">
-              IS
-            </div>
-            <span className="hidden sm:inline">Industrial Solutions</span>
+            NamanganMash
           </Link>
 
           {/* 🔹 Desktop Navigation */}
@@ -66,20 +63,23 @@ export function Navbar() {
           {/* 🔹 Right Controls */}
           <div className="flex items-center gap-4">
             {/* Language Selector */}
-            <div className="hidden sm:flex gap-2">
-              {["en", "uz", "ru"].map((lang) => (
-                <button
-                  key={lang}
-                  onClick={() => toggleLanguage(lang)}
-                  className={`px-2 py-1 text-sm font-medium rounded transition-all duration-300 ease-in-out ${
-                    i18n.language === lang
-                      ? "bg-primary text-primary-foreground"
-                      : "text-foreground hover:bg-muted"
-                  }`}
-                >
-                  {lang.toUpperCase()}
-                </button>
-              ))}
+            <div className="hidden sm:flex gap-1 bg-muted/20 dark:bg-muted/30 p-1 rounded-full">
+              {["en", "uz", "ru"].map((lang) => {
+                const isActive = i18n.language === lang
+                return (
+                  <button
+                    key={lang}
+                    onClick={() => toggleLanguage(lang)}
+                    className={`px-3 py-1 text-sm font-semibold rounded-full transition-all duration-200
+          ${isActive
+                        ? "bg-accent text-accent-foreground shadow-md scale-105"
+                        : "text-foreground hover:bg-accent/20 hover:text-accent"
+                      }`}
+                  >
+                    {lang.toUpperCase()}
+                  </button>
+                )
+              })}
             </div>
 
             {/* Mobile Menu Button */}
@@ -115,11 +115,10 @@ export function Navbar() {
                     toggleLanguage(lang)
                     setIsOpen(false)
                   }}
-                  className={`px-2 py-1 text-sm font-medium rounded transition-all duration-300 ease-in-out ${
-                    i18n.language === lang
+                  className={`px-2 py-1 text-sm font-medium rounded transition-all duration-300 ease-in-out ${i18n.language === lang
                       ? "bg-primary text-primary-foreground"
                       : "text-foreground hover:bg-muted"
-                  }`}
+                    }`}
                 >
                   {lang.toUpperCase()}
                 </button>

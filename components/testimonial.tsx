@@ -104,7 +104,7 @@ export default function Testimonials() {
                     </button>
                     <button
                         onClick={handleNext}
-                        className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-16 p-2 hover:bg-muted rounded-full transition cursor-pointer text-white hover:text-black dark:border-2 border-white"
+                        className="absolute hidden md:block right-0 top-1/2 -translate-y-1/2 translate-x-16 p-2 hover:bg-muted rounded-full transition cursor-pointer text-white hover:text-black dark:border-2 border-white"
                         aria-label="Next testimonial"
                     >
                         <ChevronRight size={24} />
