@@ -9,11 +9,14 @@ import { PRODUCTS } from "@/lib/constants"
 import { Search, Download } from "lucide-react"
 import Image from "next/image"
 import { useTranslation } from "react-i18next"
+import Link from "next/link"
+import { useRouter } from "next/navigation"
 
 export default function ProductsPage() {
   const { t } = useTranslation()
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("all")
+  const routs = useRouter()
 
   const categories = ["all", "pumps", "conveyors", "hydraulics", "automation"]
 
@@ -22,6 +25,10 @@ export default function ProductsPage() {
     const matchesCategory = selectedCategory === "all" || product.category === selectedCategory
     return matchesSearch && matchesCategory
   })
+
+  const handleClick = (id:any)=>{
+    routs.push(`/products/${id}`)
+  }
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -76,42 +83,51 @@ export default function ProductsPage() {
         </section>
 
         {/* Products Grid */}
-        <section className="py-20 bg-background">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="py-20 relative overflow-hidden">
+          {/* Background Pattern */}
+          <div className="absolute inset-0" />
+
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {filteredProducts.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                 {filteredProducts.map((product) => (
                   <Card
                     key={product.id}
-                    className="relative flex flex-col h-full rounded-2xl shadow-lg overflow-hidden bg-white dark:bg-gray-800 transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl group py-0"
+                    onClick={()=>{handleClick(product.id)}}
+                    className="group relative flex flex-col h-full overflow-hidden rounded-2xl border border-border/40 bg-white dark:bg-gray-900 shadow-md hover:shadow-2xl transition-all duration-500 cursor-pointer"
                   >
-
                     {/* Product Image */}
-                    <div className="relative w-full h-60 overflow-hidden rounded-t-2xl">
+                    <div className="relative w-full h-64 overflow-hidden">
                       <Image
                         src={product.image || "/placeholder.svg"}
                         alt={product.name}
                         fill
-                        className="object-cover group-hover:scale-110 transition-transform duration-500 ease-in-out"
+                        className="object-cover transition-transform duration-500 group-hover:scale-110"
                       />
-                      {/* Overlay for readability (optional) */}
-                      <div className="absolute inset-0 bg-white/10 dark:bg-black/10"></div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     </div>
 
-                    {/* Product Details */}
-                    <div className="p-6 flex-1 flex flex-col justify-between">
-                      <div className="space-y-2">
-                        <h3 className="text-gray-900 dark:text-white font-bold text-xl">{product.name}</h3>
-                        <p className="text-gray-700 dark:text-gray-300 text-sm line-clamp-3">
+                    {/* Product Info */}
+                    <div className="p-6 flex flex-col flex-1 justify-between">
+                      <div>
+                        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                          {product.name}
+                        </h3>
+                        <p className="text-sm text-gray-600 dark:text-gray-300 line-clamp-3 mb-4">
                           {product.description}
                         </p>
 
-                        {/* Technical Specs */}
-                        <div className="mt-3 space-y-1">
-                          <p className="font-semibold text-gray-900 dark:text-white text-sm">{t("products.technicalSpecs")}</p>
+                        {/* Specs */}
+                        <div className="space-y-1">
+                          <p className="font-semibold text-gray-900 dark:text-white text-sm">
+                            {t("products.technicalSpecs")}
+                          </p>
                           <ul className="space-y-1">
-                            {product.specs.map((spec, idx) => (
-                              <li key={idx} className="text-sm text-gray-700 dark:text-gray-300 flex items-start gap-2">
+                            {product.specs.slice(0, 3).map((spec, idx) => (
+                              <li
+                                key={idx}
+                                className="text-sm text-gray-700 dark:text-gray-400 flex items-start gap-2"
+                              >
                                 <span className="text-accent font-bold">•</span>
                                 {spec}
                               </li>
@@ -120,23 +136,30 @@ export default function ProductsPage() {
                         </div>
                       </div>
 
-                      {/* Price & CTA */}
-                      <div className="mt-6 flex items-center justify-between pt-4 border-t border-border">
+                      {/* Price + CTA */}
+                      <div className="mt-6 flex items-center justify-between pt-4 border-t border-border/50">
                         <span className="text-2xl font-bold text-primary">{product.price}</span>
-                        <Button size="sm" className="bg-accent hover:bg-accent/90 text-accent-foreground shadow-md">
-                          {t("common.requestQuote")}
-                        </Button>
+                        <Link href={`/products/${product.id}`}>
+                          <Button
+                            size="sm"
+                            className="bg-accent hover:bg-accent/90 text-accent-foreground shadow-md cursor-pointer"
+                          >
+                            {t("common.seeDetails")}
+                          </Button>
+                        </Link>
                       </div>
                     </div>
 
-                    {/* Decorative floating gradient */}
-                    <div className="absolute -top-10 -right-10 w-24 h-24 bg-accent/20 dark:bg-accent/10 rounded-full pointer-events-none"></div>
+                    {/* Floating Accent Circle */}
+                    <div className="absolute -top-10 -right-10 w-28 h-28 bg-accent/10 rounded-full blur-2xl pointer-events-none" />
                   </Card>
                 ))}
               </div>
             ) : (
-              <div className="text-center py-12">
-                <p className="text-lg text-muted-foreground">{t("products.noProducts")}</p>
+              <div className="text-center py-16">
+                <p className="text-lg text-muted-foreground">
+                  {t("products.noProducts")}
+                </p>
               </div>
             )}
           </div>

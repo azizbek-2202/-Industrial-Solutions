@@ -9,11 +9,13 @@ import { Calendar, ArrowRight } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { useTranslation } from "react-i18next"
+import { useRouter } from "next/navigation"
 
 export default function NewsPage() {
   const { t } = useTranslation()
   const [selectedCategory, setSelectedCategory] = useState("all")
   const [selectedYear, setSelectedYear] = useState("all")
+  const routs = useRouter()
 
   const categories = ["all", "announcements", "innovations", "events"]
 
@@ -25,6 +27,10 @@ export default function NewsPage() {
     const matchesYear = selectedYear === "all" || articleYear === selectedYear
     return matchesCategory && matchesYear
   })
+
+  const handleClick = (id: any) => {
+    routs.push(`/news/${id}`)
+  }
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -65,8 +71,8 @@ export default function NewsPage() {
                     key={category}
                     onClick={() => setSelectedCategory(category)}
                     className={`px-6 py-3 rounded-2xl font-semibold text-sm transition-all duration-300 ease-in-out shadow-md hover:shadow-xl hover:scale-105 ${selectedCategory === category
-                        ? "bg-primary text-white"
-                        : "bg-muted text-foreground dark:bg-gray-700 dark:text-gray-200 hover:bg-muted/80"
+                      ? "bg-primary text-white"
+                      : "bg-muted text-foreground dark:bg-gray-700 dark:text-gray-200 hover:bg-muted/80"
                       }`}
                   >
                     {t(`news.${category}`)}
@@ -84,8 +90,8 @@ export default function NewsPage() {
                     key={year}
                     onClick={() => setSelectedYear(year)}
                     className={`px-6 py-3 rounded-2xl font-semibold text-sm transition-all duration-300 ease-in-out shadow-md hover:shadow-xl hover:scale-105 ${selectedYear === year
-                        ? "bg-primary text-white"
-                        : "bg-muted text-foreground dark:bg-gray-700 dark:text-gray-200 hover:bg-muted/80"
+                      ? "bg-primary text-white"
+                      : "bg-muted text-foreground dark:bg-gray-700 dark:text-gray-200 hover:bg-muted/80"
                       }`}
                   >
                     {year === "all" ? t("news.all") : year}
@@ -104,7 +110,8 @@ export default function NewsPage() {
                 {filteredNews.map((article) => (
                   <Card
                     key={article.id}
-                    className="relative flex flex-col h-full rounded-2xl shadow-lg overflow-hidden transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl py-0"
+                    onClick={() => { handleClick(article.id) }}
+                    className="relative flex flex-col h-full rounded-2xl shadow-lg overflow-hidden transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl py-0 cursor-pointer"
                   >
                     {/* Article Image */}
                     <div className="relative w-full h-56 overflow-hidden">
