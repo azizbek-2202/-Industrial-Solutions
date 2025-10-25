@@ -8,10 +8,16 @@ import { Card } from "@/components/ui/card"
 import { PRODUCTS } from "@/lib/constants"
 import { ArrowRight } from "lucide-react"
 import { ScrollAnimation } from "@/components/scroll-animation"
+import { useRouter } from "next/navigation"
 
 export function FeaturedProducts() {
   const { t } = useTranslation()
   const featuredProducts = PRODUCTS.slice(0, 3)
+  const router = useRouter()
+
+  const handleClick = () => {
+    router.push(`/products`)
+  }
 
   return (
     <section className="py-20 bg-background">
@@ -28,7 +34,9 @@ export function FeaturedProducts() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
           {featuredProducts.map((product, idx) => (
             <ScrollAnimation key={product.id} delay={idx * 100}>
-              <Card className="overflow-hidden card-hover group h-full flex flex-col py-0 ">
+              <Card
+                onClick={() => { handleClick() }}
+                className="overflow-hidden card-hover group h-full flex flex-col py-0 cursor-pointer">
                 {/* Product Image */}
                 <div className="relative w-full h-56 bg-muted overflow-hidden">
                   <Image

@@ -15,8 +15,8 @@ export function NewsPreview() {
   const latestNews = NEWS.slice(0, 3)
   const router = useRouter()
 
-  const handleClick = (id: string | number) => {
-    router.push(`/new/${id}`)
+  const handleClick = () => {
+    router.push(`/news`)
   }
   return (
     <section className="py-20 bg-background">
@@ -34,7 +34,7 @@ export function NewsPreview() {
           {latestNews.map((article, idx) => (
             <ScrollAnimation key={article.id} delay={idx * 100}>
               <Card
-                onClick={() => { handleClick(article.id) }}
+                onClick={() => { handleClick() }}
                 className="overflow-hidden card-hover group flex flex-col h-full py-0 cursor-pointer">
                 {/* Article Image */}
                 <div className="relative w-full h-56 bg-muted overflow-hidden">
