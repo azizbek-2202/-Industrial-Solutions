@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { ChevronLeft, ChevronRight, Star } from "lucide-react"
+import { useTranslation } from "react-i18next"
 
 const testimonials = [
     {
@@ -34,6 +35,7 @@ const testimonials = [
 
 export default function Testimonials() {
     const [currentIndex, setCurrentIndex] = useState(0)
+    const { t } = useTranslation()
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -54,7 +56,13 @@ export default function Testimonials() {
         <section id="testimonials" className="py-20 px-4 sm:px-6 lg:px-8 relative">
             <div className="max-w-7xl mx-auto">
                 <div className="text-center mb-16">
-                    <h2 className="text-4xl text-white sm:text-5xl font-bold mb-4">What Our Clients Say</h2>
+                    <h2
+                        className="text-4xl md:text-5xl font-extrabold leading-tight text-balance 
+                text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 
+                drop-shadow-lg animate-in fade-in slide-in-from-top-4 duration-700 delay-100"
+                    >
+                        {t("home.advantagesTitle")}
+                    </h2>
                     <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                         Trusted by leading companies worldwide for innovation and reliability.
                     </p>

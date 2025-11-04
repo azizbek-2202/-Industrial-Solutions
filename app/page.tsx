@@ -8,6 +8,7 @@ import { AdvantagesSection } from "@/components/advantages-section";
 import { NewsPreview } from "@/components/news-preview";
 import Testimonials from "@/components/testimonial";
 import Products from "@/components/Swiper";
+import Video from "@/components/Video";
 
 export default function Home() {
   return (
@@ -15,8 +16,9 @@ export default function Home() {
       <Navbar />
       <main className="flex-1">
         <HeroSection />
-        <Products/>
         <AdvantagesSection />
+        <Products/>
+        <Video/>
         <Testimonials/>
         <FeaturedProducts />
         <NewsPreview />

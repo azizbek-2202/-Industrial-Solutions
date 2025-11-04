@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react"
 import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react"
+import Link from "next/link"
 
 const products = [
     {
@@ -60,7 +61,7 @@ export default function Products() {
     }
 
     return (
-        <section id="products" className="py-20 px-4 sm:px-6 lg:px-8 bg-background">
+        <section id="products" className="pb-20 px-4 sm:px-6 lg:px-8 bg-background">
             <div className="max-w-7xl mx-auto">
                 <div className="text-center mb-16">
                     <h2 className="text-4xl sm:text-5xl font-bold mb-4 text-foreground">Our Products</h2>
@@ -96,12 +97,19 @@ export default function Products() {
                                             <p className="text-sm font-medium uppercase tracking-wider mb-2 text-accent">
                                                 {product.category}
                                             </p>
-                                            <h3 className="text-3xl font-bold mb-4 text-white">{product.title}</h3>
+                                            <h3
+                                                className="text-3xl md:text-4xl font-extrabold mb-4 
+                                                    text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-300 
+                                                    drop-shadow-[0_0_15px_rgba(255,180,70,0.4)] tracking-tight leading-snug 
+                                                    animate-in fade-in slide-in-from-bottom-2 duration-700"
+                                            >
+                                                {product.title}
+                                            </h3>
                                             <p className="text-lg text-muted-foreground mb-6">{product.description}</p>
-                                            <button className="inline-flex items-center gap-2 px-6 py-3 bg-accent text-background rounded-full font-semibold hover:bg-accent/90 dark:hover:bg-accent/80 transition group">
+                                            <Link href={`/products`} className="inline-flex items-center gap-2 px-6 py-3 bg-accent text-background rounded-full font-semibold hover:bg-accent/90 dark:hover:bg-accent/80 transition group">
                                                 Learn More
                                                 <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform duration-300" />
-                                            </button>
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>

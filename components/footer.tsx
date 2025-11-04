@@ -1,4 +1,3 @@
-// components/footer.tsx
 "use client"
 
 import { useTranslation } from "react-i18next"
@@ -39,7 +38,7 @@ export function Footer() {
             <ul className="space-y-2 text-sm">
               <li>
                 <Link href="/" className="text-white hover:text-accent transition-all duration-300 ease-in-out">
-                  {t("nav.home")}
+                  <span suppressHydrationWarning>{t("nav.home")}</span>
                 </Link>
               </li>
               <li>

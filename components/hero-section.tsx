@@ -1,80 +1,72 @@
-"use client";
+"use client"
 
 import { useTranslation } from "react-i18next"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
-import { ScrollAnimation } from "@/components/scroll-animation"
 
 export function HeroSection() {
   const { t } = useTranslation()
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Animated background elements */}
+      {/* Animated background layers */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-20 right-10 w-72 h-72 bg-accent/10 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black/70 via-black/40 to-black/80 z-[1]" />
+        <div className="absolute top-20 right-10 w-72 h-72 bg-orange-500/10 rounded-full blur-3xl animate-pulse-slow" />
         <div
-          className="absolute bottom-20 left-10 w-96 h-96 bg-accent/5 rounded-full blur-3xl animate-pulse"
+          className="absolute bottom-20 left-10 w-96 h-96 bg-yellow-400/10 rounded-full blur-3xl animate-pulse-slower"
           style={{ animationDelay: "1s" }}
         />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Left Content */}
-          <ScrollAnimation>
-            <div className="space-y-6">
-              <div className="inline-block px-4 py-2 bg-accent/20 rounded-full border border-accent/40 animate-in fade-in slide-in-from-left-4 duration-700">
-                <span className="text-accent font-semibold text-sm">{t("home.yearsInBusiness")} 1995</span>
-              </div>
+      {/* Hero content */}
+      <div className="relative z-20 max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 py-24 text-center">
+        <div className="space-y-8">
+          {/* Badge */}
+          <div className="inline-block px-5 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full animate-in fade-in slide-in-from-top-4 duration-700">
+            <span className="text-yellow-400 font-semibold text-sm tracking-wide">
+              {t("home.yearsInBusiness")} 1995
+            </span>
+          </div>
 
-              <h1 className="text-5xl text-white lg:text-6xl font-bold leading-tight text-balance animate-in fade-in slide-in-from-left-4 duration-700 delay-100 text-foreground">
-                {t("home.heroTitle")}
-              </h1>
+          {/* Title */}
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight text-balance animate-in fade-in slide-in-from-top-4 duration-700 delay-100">
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 drop-shadow-lg">
+              {t("home.heroTitle")}
+            </span>
+          </h1>
 
-              <p className="text-lg text-muted-foreground max-w-lg text-balance animate-in fade-in slide-in-from-left-4 duration-700 delay-200">
-                {t("home.heroSubtitle")}
-              </p>
+          {/* Subtitle */}
+          <p className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto text-balance animate-in fade-in slide-in-from-top-4 duration-700 delay-200">
+            {t("home.heroSubtitle")}
+          </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 pt-4 animate-in fade-in slide-in-from-left-4 duration-700 delay-300">
-                <Link href="/products">
-                  <Button
-                    size="lg"
-                    className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold gap-2 w-full sm:w-auto transition-all duration-300 ease-in-out hover:scale-105 cursor-pointer"
-                  >
-                    {t("home.heroCtaButton")}
-                    <ArrowRight className="w-4 h-4" />
-                  </Button>
-                </Link>
-                <Link href="/contacts">
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="border-foreground text-white hover:text-white hover:bg-foreground/10 font-semibold w-full sm:w-auto bg-transparent transition-all duration-300 ease-in-out hover:scale-105 cursor-pointer"
-                  >
-                    {t("common.contactUs")}
-                  </Button>
-                </Link>
-              </div>
+          {/* Buttons */}
+          <div className="flex flex-col sm:flex-row justify-center gap-4 pt-6 animate-in fade-in slide-in-from-top-4 duration-700 delay-300">
+            <Link href="/products">
+              <Button
+                size="lg"
+                className="relative overflow-hidden px-8 py-4 rounded-full font-semibold text-lg bg-gradient-to-r from-yellow-400 to-orange-500 text-black shadow-[0_0_25px_rgba(255,180,70,0.5)] hover:scale-105 transition-all cursor-pointer"
+              >
+                <span className="relative z-10 flex items-center gap-2">
+                  {t("home.heroCtaButton")}
+                  <ArrowRight className="w-5 h-5" />
+                </span>
+                <span className="absolute inset-0 bg-white/20 opacity-0 hover:opacity-100 transition-opacity" />
+              </Button>
+            </Link>
 
-              {/* Stats */}
-              <div className="grid grid-cols-3 gap-6 pt-8 border-t border-foreground/20 animate-in fade-in slide-in-from-left-4 duration-700 delay-400">
-                <div>
-                  <p className="text-3xl font-bold text-accent">500+</p>
-                  <p className="text-sm text-muted-foreground">{t("home.satisfiedClients")}</p>
-                </div>
-                <div>
-                  <p className="text-3xl font-bold text-accent">30+</p>
-                  <p className="text-sm text-muted-foreground">{t("home.productsDelivered")}</p>
-                </div>
-                <div>
-                  <p className="text-3xl font-bold text-accent">29</p>
-                  <p className="text-sm text-muted-foreground">{t("home.expertTeam")}</p>
-                </div>
-              </div>
-            </div>
-          </ScrollAnimation>
+            <Link href="/contacts">
+              <Button
+                size="lg"
+                variant="outline"
+                className="px-8 py-4 rounded-full border border-white/40 text-white hover:bg-white/10 hover:text-white font-semibold hover:scale-105 transition-all backdrop-blur-sm cursor-pointer"
+              >
+                {t("common.contactUs")}
+              </Button>
+            </Link>
+          </div>
         </div>
       </div>
     </section>

@@ -15,8 +15,8 @@ export function FeaturedProducts() {
   const featuredProducts = PRODUCTS.slice(0, 3)
   const router = useRouter()
 
-  const handleClick = () => {
-    router.push(`/products`)
+  const handleClick = (id:any) => {
+    router.push(`/products/${id}`)
   }
 
   return (
@@ -25,7 +25,13 @@ export function FeaturedProducts() {
         {/* Section Header */}
         <ScrollAnimation>
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-white mb-4">{t("home.featuredProductsTitle")}</h2>
+            <h2
+              className="text-4xl md:text-5xl font-extrabold leading-tight text-balance 
+                text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 
+                drop-shadow-lg animate-in fade-in slide-in-from-top-4 duration-700 delay-100"
+            >
+              {t("home.featuredProductsTitle")}
+            </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{t("home.featuredProductsSubtitle")}</p>
           </div>
         </ScrollAnimation>
@@ -35,7 +41,7 @@ export function FeaturedProducts() {
           {featuredProducts.map((product, idx) => (
             <ScrollAnimation key={product.id} delay={idx * 100}>
               <Card
-                onClick={() => { handleClick() }}
+                onClick={() => { handleClick(product.id) }}
                 className="overflow-hidden card-hover group h-full flex flex-col py-0 cursor-pointer">
                 {/* Product Image */}
                 <div className="relative w-full h-56 bg-muted overflow-hidden">
@@ -49,7 +55,13 @@ export function FeaturedProducts() {
 
                 {/* Product Content */}
                 <div className="p-6 space-y-4 flex-1 flex flex-col">
-                  <h3 className="text-xl font-bold text-foreground">{product.name}</h3>
+                  <h3
+                    className="text-xl font-bold mb-3 relative z-10 
+                    text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500
+                    drop-shadow-md tracking-wide animate-in fade-in slide-in-from-left-2 duration-700 delay-200"
+                  >
+                    {product.name}
+                  </h3>
                   <p className="text-muted-foreground text-sm flex-1">{product.description}</p>
 
                   {/* Specs */}
@@ -65,7 +77,7 @@ export function FeaturedProducts() {
                   {/* Price and CTA */}
                   <div className="flex items-center justify-between pt-4 border-t border-border mt-auto">
                     <span className="text-2xl font-bold text-primary">{product.price}</span>
-                    <Link href="/products">
+                    <Link href={`/products/${product.id}`}>
                       <Button size="sm" variant="ghost" className="text-accent hover:text-white gap-1 cursor-pointer">
                         {t("common.learnMore")}
                         <ArrowRight className="w-4 h-4" />

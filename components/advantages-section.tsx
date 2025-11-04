@@ -37,7 +37,13 @@ export function AdvantagesSection() {
         {/* Section Header */}
         <ScrollAnimation>
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-white mb-4">{t("home.advantagesTitle")}</h2>
+            <h2
+              className="text-4xl md:text-5xl font-extrabold leading-tight text-balance 
+                text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 
+                drop-shadow-lg animate-in fade-in slide-in-from-top-4 duration-700 delay-100"
+            >
+              {t("home.advantagesTitle")}
+            </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               We deliver excellence through innovation, quality, and customer commitment
             </p>
@@ -50,19 +56,23 @@ export function AdvantagesSection() {
             const Icon = advantage.icon
             return (
               <ScrollAnimation key={idx} delay={idx * 100}>
-                <Card className="relative p-6 text-center group h-full overflow-hidden rounded-2xl shadow-lg bg-background/80 dark:bg-background/70 backdrop-blur-md transition-transform duration-500 hover:-translate-y-3 hover:shadow-2xl">
+                <Card className="relative p-8 text-center group h-full overflow-hidden rounded-2xl shadow-lg bg-background/80 dark:bg-background/70 backdrop-blur-md transition-transform duration-500 hover:-translate-y-3 hover:shadow-2xl">
                   {/* Floating Gradient Circle */}
                   <div className="absolute -top-10 -right-10 w-24 h-24 rounded-full bg-gradient-to-tr from-accent/30 to-primary/30 blur-3xl pointer-events-none"></div>
 
                   {/* Icon */}
                   <div className="flex justify-center mb-5 relative z-10">
-                    <div className="p-4 bg-accent/10 dark:bg-accent/20 rounded-xl inline-flex items-center justify-center transition-all duration-300 group-hover:scale-110">
+                    <div className="p-4 bg-accent/10 dark:bg-accent/20 rounded-xl inline-flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:rotate-y-180">
                       <Icon className="w-7 h-7 text-accent dark:text-accent/90" />
                     </div>
                   </div>
 
                   {/* Title */}
-                  <h3 className="text-lg font-bold text-foreground mb-3 relative z-10">
+                  <h3
+                    className="text-xl font-bold mb-3 relative z-10 
+                    text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500
+                    drop-shadow-md tracking-wide animate-in fade-in slide-in-from-left-2 duration-700 delay-200"
+                  >
                     {t(advantage.titleKey)}
                   </h3>
 

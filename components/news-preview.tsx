@@ -15,17 +15,36 @@ export function NewsPreview() {
   const latestNews = NEWS.slice(0, 3)
   const router = useRouter()
 
-  const handleClick = () => {
-    router.push(`/news`)
+  // Har bir sana uchun bir xil format (SSR + Client)
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString)
+    return new Intl.DateTimeFormat("uz-UZ", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    }).format(date)
   }
+
+  const handleClick = (id: any) => {
+    router.push(`/news/${id}`)
+  }
+
   return (
     <section className="py-20 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <ScrollAnimation>
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-white mb-4">{t("home.latestNewsTitle")}</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{t("home.latestNewsSubtitle")}</p>
+            <h2
+              className="text-4xl md:text-5xl font-extrabold leading-tight text-balance 
+                text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 
+                drop-shadow-lg animate-in fade-in slide-in-from-top-4 duration-700 delay-100"
+            >
+              {t("home.latestNewsTitle")}
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              {t("home.latestNewsSubtitle")}
+            </p>
           </div>
         </ScrollAnimation>
 
@@ -34,8 +53,9 @@ export function NewsPreview() {
           {latestNews.map((article, idx) => (
             <ScrollAnimation key={article.id} delay={idx * 100}>
               <Card
-                onClick={() => { handleClick() }}
-                className="overflow-hidden card-hover group flex flex-col h-full py-0 cursor-pointer">
+                onClick={() => { handleClick(article.id) }}
+                className="overflow-hidden card-hover group flex flex-col h-full py-0 cursor-pointer"
+              >
                 {/* Article Image */}
                 <div className="relative w-full h-56 bg-muted overflow-hidden">
                   <Image
@@ -50,11 +70,15 @@ export function NewsPreview() {
                 <div className="p-6 space-y-4 flex-1 flex flex-col">
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
                     <Calendar className="w-4 h-4" />
-                    {new Date(article.date).toLocaleDateString()}
+                    <span suppressHydrationWarning>{formatDate(article.date)}</span>
                   </div>
 
-                  <h3 className="text-xl font-bold text-foreground">{article.title}</h3>
-                  <p className="text-muted-foreground text-sm flex-1">{article.excerpt}</p>
+                  <h3 className="text-xl font-bold text-foreground">
+                    {article.title}
+                  </h3>
+                  <p className="text-muted-foreground text-sm flex-1">
+                    {article.excerpt}
+                  </p>
 
                   {/* Read More Link */}
                   <Link

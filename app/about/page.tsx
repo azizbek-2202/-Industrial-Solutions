@@ -5,8 +5,17 @@ import { Footer } from "@/components/footer"
 import { Card } from "@/components/ui/card"
 import { Award, Users, Zap, Globe } from "lucide-react"
 import { StatsSection } from "@/components/StatsSection"
+import { useTranslation } from "react-i18next"
+import * as Icons from "lucide-react"
 
 export default function AboutPage() {
+  const { t } = useTranslation()
+  const ValuesCards = t("about.valuesCard", { returnObjects: true }) as {
+    icon: string
+    title: string
+    desc: string
+  }[]
+
   const milestones = [
     {
       year: "1995",
@@ -43,17 +52,16 @@ export default function AboutPage() {
 
       <main className="flex-1">
         {/* HERO */}
-        <section className="relative overflow-hidden py-28 flex items-center justify-center text-center">
+        <section className="relative overflow-hidden py-36 flex items-center justify-center text-center">
           {/* 🔹 Light / Dark fonlar */}
           <div className="absolute inset-0 dark:from-gray-950 dark:via-gray-900 dark:to-black transition-colors duration-700" />
 
           {/* 🔹 Kontent */}
           <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h1
-              className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6 
-                text-white animate-fade-up"
-            >
-              About <span className="text-accent">Industrial Solutions</span>
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight text-balance animate-in fade-in slide-in-from-top-4 duration-700 delay-100">
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 drop-shadow-lg">
+                {t("about.aboutTitle")}
+              </span>
             </h1>
 
             <p
@@ -61,8 +69,7 @@ export default function AboutPage() {
                  animate-fade-up opacity-90"
               style={{ animationDelay: "0.2s" }}
             >
-              Leading the industrial manufacturing sector with <span className="font-semibold">innovation</span> and{" "}
-              <span className="font-semibold">quality</span> — driving the world’s industries into the future.
+              {t("about.subTitle")}
             </p>
 
             {/* 🔹 CTA tugmalar (responsive) */}
@@ -74,13 +81,13 @@ export default function AboutPage() {
                 href="#mission"
                 className="px-6 py-3 rounded-full bg-accent text-white font-medium hover:bg-accent/90 transition-all duration-300"
               >
-                Our Mission
+                {t("about.mainBtn1")}
               </a>
               <a
                 href="#values"
                 className="px-6 py-3 rounded-full border border-accent text-accent font-medium hover:bg-accent/10 transition-all duration-300"
               >
-                Our Values
+                {t("about.mainBtn2")}
               </a>
             </div>
           </div>
@@ -97,19 +104,20 @@ export default function AboutPage() {
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             {/* LEFT CONTENT */}
             <div className="relative z-10">
-              <h2 className="text-5xl font-extrabold mb-8 text-white leading-tight">
-                Our Mission
+              <h2
+                className="text-4xl pb-2 md:text-5xl font-extrabold leading-tight text-balance 
+                text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 
+                drop-shadow-lg animate-in fade-in slide-in-from-top-4 duration-700 delay-100"
+              >
+                {t("about.mainBtn1")}
               </h2>
 
               <p className="text-lg text-white dark:text-gray-300 mb-6 leading-relaxed">
-                To provide innovative, reliable, and sustainable industrial solutions that empower businesses
-                to achieve operational excellence and drive growth in their respective markets.
+                {t("about.sectionDesc1")}
               </p>
 
               <p className="text-lg text-white dark:text-gray-300 mb-10 leading-relaxed">
-                We believe in the synergy of technology and human expertise to solve complex
-                industrial challenges. Our dedication to quality, innovation, and customer satisfaction
-                makes us a trusted partner for global enterprises.
+                {t("about.sectionDesc2")}
               </p>
 
               {/* STATS */}
@@ -135,44 +143,55 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* TIMELINE */}
-        <section className="py-20 bg-muted/30">
+        {/* VALUES */}
+        <section id="values" className="py-20 relative">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-4xl font-bold mb-16 text-center">Our Journey</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {milestones.map((m, i) => (
-                <Card
-                  key={i}
-                  className="relative p-8 rounded-xl bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-2xl hover:-translate-y-1 transition-all duration-500"
-                >
-                  {/* Gradient accent chiziq */}
-                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent to-accent/60 rounded-t-xl"></div>
+            <h2
+              className="text-center text-4xl pb-10 md:text-5xl font-extrabold leading-tight text-balance 
+                text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 
+                drop-shadow-lg animate-in fade-in slide-in-from-top-4 duration-700 delay-100"
+            >
+              {t("about.mainBtn2")}
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {ValuesCards.length > 0 &&
+                ValuesCards.map((value, i) => {
+                  const Icon = Icons[value.icon as keyof typeof Icons]
 
-                  {/* Yil */}
-                  <p className="text-4xl font-extrabold text-accent mb-4 tracking-tight">
-                    {m.year}
-                  </p>
+                  return (
+                    <div
+                      key={i}
+                      className="group relative overflow-hidden p-8 rounded-2xl bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-500"
+                    >
+                      {/* Yorqin nur effekti */}
+                      <div className="absolute inset-0 bg-gradient-to-r from-accent/20 via-transparent to-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl" />
 
-                  {/* Title */}
-                  <h3 className="text-lg font-semibold mb-2 text-gray-900 dark:text-white group-hover:text-accent transition-colors">
-                    {m.title}
-                  </h3>
+                      {/* Icon joylashuvi */}
+                      <div className="relative z-10 flex justify-center items-center w-16 h-16 mx-auto mb-6 rounded-full bg-accent/10 group-hover:bg-accent/20 transition-all duration-500">
+                        {Icon && <Icon className="w-8 h-8 text-accent" />}
+                      </div>
 
-                  {/* Description */}
-                  <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-                    {m.description}
-                  </p>
+                      {/* Title */}
+                      <h3 className="relative z-10 text-xl font-semibold mb-3 text-gray-900 dark:text-white">
+                        {value.title}
+                      </h3>
 
-                  {/* Hoverda dekorativ effekt */}
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-10 bg-accent transition-opacity duration-500 rounded-xl"></div>
-                </Card>
-              ))}
+                      {/* Description */}
+                      <p className="relative z-10 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+                        {value.desc}
+                      </p>
+
+                      {/* Pastki dekorativ chiziq */}
+                      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 group-hover:w-3/4 h-[2px] bg-accent transition-all duration-500" />
+                    </div>
+                  )
+                })}
             </div>
           </div>
         </section>
 
         {/* TEAM */}
-        <section className="py-20 bg-background">
+        <section className="py-20 relative">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-4xl font-bold mb-16 text-center">Leadership Team</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -221,54 +240,45 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* VALUES */}
-        <section id="values" className="py-20 bg-muted/30">
+        {/* TIMELINE */}
+        <section className="py-20 relative">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-4xl font-bold mb-16 text-center">Our Values</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {[
-                { icon: Award, title: "Excellence", desc: "Commitment to the highest quality standards." },
-                { icon: Users, title: "Collaboration", desc: "Working together for mutual success." },
-                { icon: Zap, title: "Innovation", desc: "Continuous improvement and advancement." },
-                { icon: Globe, title: "Sustainability", desc: "Responsible environmental practices." },
-              ].map((value, i) => {
-                const Icon = value.icon
-                return (
-                  <div
-                    key={i}
-                    className="group relative overflow-hidden p-8 rounded-2xl bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-500"
-                  >
-                    {/* Yorqin nur effekti */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-accent/20 via-transparent to-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl" />
+            <h2 className="text-4xl font-bold mb-16 text-center">Our Journey</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {milestones.map((m, i) => (
+                <Card
+                  key={i}
+                  className="relative p-8 rounded-xl bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-2xl hover:-translate-y-1 transition-all duration-500"
+                >
+                  {/* Gradient accent chiziq */}
+                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent to-accent/60 rounded-t-xl"></div>
 
-                    {/* Icon joylashuvi */}
-                    <div className="relative z-10 flex justify-center items-center w-16 h-16 mx-auto mb-6 rounded-full bg-accent/10 group-hover:bg-accent/20 transition-all duration-500">
-                      <Icon className="w-8 h-8 text-accent" />
-                    </div>
+                  {/* Yil */}
+                  <p className="text-4xl font-extrabold text-accent mb-4 tracking-tight">
+                    {m.year}
+                  </p>
 
-                    {/* Title */}
-                    <h3 className="relative z-10 text-xl font-semibold mb-3 text-gray-900 dark:text-white">
-                      {value.title}
-                    </h3>
+                  {/* Title */}
+                  <h3 className="text-lg font-semibold mb-2 text-gray-900 dark:text-white group-hover:text-accent transition-colors">
+                    {m.title}
+                  </h3>
 
-                    {/* Description */}
-                    <p className="relative z-10 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
-                      {value.desc}
-                    </p>
+                  {/* Description */}
+                  <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                    {m.description}
+                  </p>
 
-                    {/* Pastki dekorativ chiziq */}
-                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 group-hover:w-3/4 h-[2px] bg-accent transition-all duration-500" />
-                  </div>
-
-                )
-              })}
+                  {/* Hoverda dekorativ effekt */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-10 bg-accent transition-opacity duration-500 rounded-xl"></div>
+                </Card>
+              ))}
             </div>
           </div>
         </section>
 
       </main>
 
-      <Footer />
+      {/* <Footer /> */}
     </div>
   )
 }
